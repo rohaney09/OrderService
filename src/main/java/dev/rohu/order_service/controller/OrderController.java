@@ -1,9 +1,9 @@
 package dev.rohu.order_service.controller;
 
 import dev.rohu.order_service.dto.request.CreateOrderRequest;
-import dev.rohu.order_service.dto.request.UpdateStatusRequest;
 import dev.rohu.order_service.dto.response.ApiResponse;
 import dev.rohu.order_service.dto.response.OrderResponse;
+import dev.rohu.order_service.model.OrderStatus;
 import dev.rohu.order_service.service.OrderService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -38,8 +38,8 @@ public class OrderController {
     @PutMapping("/{orderId}/status")
     public ResponseEntity<ApiResponse<OrderResponse>> updateOrderStatus(
             @PathVariable String orderId,
-            @Valid @RequestBody UpdateStatusRequest request) {
-        OrderResponse response = orderService.updateOrderStatus(orderId, request.getStatus());
+            @RequestParam OrderStatus status) {
+        OrderResponse response = orderService.updateOrderStatus(orderId, status);
         return ResponseEntity.ok(ApiResponse.success("Order status updated successfully", response));
     }
 
