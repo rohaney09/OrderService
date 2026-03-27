@@ -1,3 +1,6 @@
 spring:
   application:
     name: zecdata
+
+server:
+  port: 8081
