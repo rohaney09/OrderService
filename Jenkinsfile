@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         maven 'Maven3'   // make sure Maven is configured in Jenkins
-        jdk 'JDK17'     // match your Java version
+        jdk 'JDK17'      // match your Java version
     }
 
     stages {
@@ -34,7 +34,7 @@ pipeline {
 
         stage('Run App') {
             steps {
-                bat 'nohup java -jar target/*.jar &'
+                bat 'start /B java -jar target\\order_service-0.0.1-SNAPSHOT.jar'
             }
         }
     }
