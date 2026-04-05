@@ -70,8 +70,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 bat '''
-                docker stop order-container || exit 0
-                docker rm order-container || exit 0
+                docker stop order-container || echo "no container"
+                docker rm order-container || echo "no container"
                 docker run -d -p 8081:8081 --name order-container order-service
                 '''
             }
