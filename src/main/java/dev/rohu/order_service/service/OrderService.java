@@ -63,7 +63,7 @@ public class OrderService {
         }
         return order;
     }
-
+//git
     private void validateTransition(OrderStatus current, OrderStatus next) {
         boolean valid = switch (current) {
             case NEW -> next == OrderStatus.PROCESSING;
