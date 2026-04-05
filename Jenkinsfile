@@ -49,12 +49,6 @@ pipeline {
 
     stages {
 
-        stage('Check Docker') {
-            steps {
-                bat 'docker --version'
-            }
-        }
-
         stage('Clone') {
             steps {
                 git branch: 'main', url: 'https://github.com/rohaney09/OrderService.git'
@@ -64,6 +58,22 @@ pipeline {
         stage('Build') {
             steps {
                 bat 'mvn clean package'
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                bat 'docker build -t order-service .'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                bat '''
+                docker stop order-container || exit 0
+                docker rm order-container || exit 0
+                docker run -d -p 8081:8081 --name order-container order-service
+                '''
             }
         }
     }
